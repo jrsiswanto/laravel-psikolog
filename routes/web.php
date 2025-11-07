@@ -19,6 +19,8 @@ Route::resource('artikel',ArtikelController::class);
 Route::resource('video', VideoController::class);
 //route infografis
 Route::resource('infografis',InfografisController::class);   
+//route tanya jawab
+Route::resource('tanya-jawab', \App\Http\Controllers\TanyaJawabController::class);
 
 // route breeze
 Route::middleware('auth')->group(function () {
