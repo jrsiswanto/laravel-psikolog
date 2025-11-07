@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArtikelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\InfografisController;
 
 // route public
 
@@ -16,7 +17,10 @@ Route::view('/konsultasi', 'fitur.konsultasi');
 Route::resource('artikel',ArtikelController::class);
 //video video
 Route::resource('video', VideoController::class);
+//route infografis
+Route::resource('infografis',InfografisController::class);   
 
+// route breeze
 Route::middleware('auth')->group(function () {
 
     // Profile routes breeze
