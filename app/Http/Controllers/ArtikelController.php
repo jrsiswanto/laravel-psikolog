@@ -19,7 +19,7 @@ class ArtikelController extends Controller
     {
         return view('fitur.artikel.artikel', [
             // Ambil artikel terbaru di paling atas
-            'artikel' => Artikel::with('penulis')->latest()->get()
+            'artikel' => Artikel::with('penulis')->latest()->paginate(9) // misal tampil 9 artikel per halaman
         ]);
     }
 

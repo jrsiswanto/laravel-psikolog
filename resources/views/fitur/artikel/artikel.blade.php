@@ -1,105 +1,77 @@
-@extends('layouts.main')
-@section('title', 'Artikel')
-@section('content')
-    <!-- ===== Blog Grid Start ===== -->
-    <section class="ji gp uq">
-        <div class="bb ye ki xn vq jb jo">
-            <div class="wc qf pn xo zf iq">
+<x-app-layout>
+    {{-- HEADER HALAMAN --}}
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Artikel Terbaru') }}
+        </h2>
+    </x-slot>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="py-12 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="mb-10 text-center">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Kumpulan Artikel Psikologi</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-2">
+                    Baca artikel pilihan tentang kesehatan mental, tips hidup seimbang, dan wawasan terbaru 🌿
+                </p>
+            </div>
+
+            {{-- GRID ARTIKEL --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($artikel as $item)
-                    <div class="animate_top sg vk rm xm">
-                        <div class="c i vd pf pg" style="padding-top: 56.25%;">
-
-                            @if ($item->gambar == null)
-                                <div class="h r s vd yc qh"></div>
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300">
+                        {{-- GAMBAR --}}
+                        <div class="relative w-full pt-[56.25%] bg-gray-200 dark:bg-gray-700">
+                            @if ($item->gambar)
+                                <img src="{{ asset('storage/img/' . $item->gambar) }}"
+                                    alt="Gambar {{ $item->judul }}"
+                                    class="absolute inset-0 w-full h-full object-cover">
                             @else
-                                <img src="{{ asset('storage/img' . $item->gambar) }}" alt="Gambar {{ $item->judul }}"
-                                    class="h r s vd yc" style="object-fit: cover;" />
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <span class="text-sm">Tidak ada gambar</span>
+                                </div>
                             @endif
-
-                            <div class="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                <a href="artikel/{{$item->id}}" class="vc ek rg lk gh sl ml il gi hi">Baca Selengkapnya</a>
-                            </div>
                         </div>
 
-                        <div class="yh">
-                            <div class="tc uf wf ag jq">
-                                <div class="tc wf ag">
+                        {{-- ISI ARTIKEL --}}
+                        <div class="p-5 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 hover:text-blue-600">
+                                    <a href="{{ url('artikel/' . $item->id) }}">
+                                        {{ $item->judul }}
+                                    </a>
+                                </h3>
+                                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                    {{ \Illuminate\Support\Str::words(strip_tags($item->slug), 10, '...') }}
+                                </p>
+                            </div>
+
+                            {{-- INFO PENULIS DAN TANGGAL --}}
+                            <div class="flex items-center justify-between mt-4 text-sm text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center space-x-2">
                                     @if (optional($item->penulis)->foto_profil)
                                         <img src="{{ asset('storage/' . $item->penulis->foto_profil) }}"
-                                            alt="Foto {{ $item->penulis->name }}"
-                                            class="w-6 h-6 rounded-full object-cover" />
+                                            class="w-6 h-6 rounded-full object-cover" alt="Foto Penulis">
                                     @else
-                                        <img src="{{ asset('images/icon-man.svg') }}" alt="User" class="w-6" />
+                                        <img src="{{ asset('images/icon-man.svg') }}" class="w-6 h-6" alt="User">
                                     @endif
-                                    <p>{{ optional($item->penulis)->name ?? 'Penulis' }}</p>
+                                    <span>{{ optional($item->penulis)->name ?? 'Anonim' }}</span>
                                 </div>
-                                <div class="tc wf ag">
-                                    <img src="{{ asset('images/icon-calender.svg') }}" alt="Calender" />
-                                    <p>{{ $item->created_at->format('d M Y') }}</p>
+                                <div class="flex items-center space-x-1">
+                                    <img src="{{ asset('images/icon-calender.svg') }}" class="w-4 h-4" alt="Tanggal">
+                                    <span>{{ $item->created_at->format('d M Y') }}</span>
                                 </div>
                             </div>
-                            <h4 class="ek tj ml il kk wm xl eq lb">
-                                <a href="artikel/{{$item->id}}">{{ $item->judul }}</a>
-                            </h4>
-                            <p class="text-sm text-gray-500 mt-2">
-                                Slug: {{ \Illuminate\Support\Str::words($item->slug, 5, '...') }}
-                            </p>
                         </div>
                     </div>
                 @endforeach
             </div>
 
-            <!-- Pagination -->
-            <div class="mb lo bq i ua">
-                <nav>
-                    <ul class="tc wf xf bg">
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                <svg class="th lm ml il" width="8" height="14" viewBox="0 0 8 14" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.93884 6.99999L7.88884 11.95L6.47484 13.364L0.11084 6.99999L6.47484 0.635986L7.88884 2.04999L2.93884 6.99999Z" />
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                2
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                3
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                4
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                ...
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                12
-                            </a>
-                        </li>
-                        <li>
-                            <a class="c tc wf xf wd in zc hn rg uj fo wk xm ml il hh rm tl zm yl an" href="#!">
-                                <svg class="th lm ml il" width="8" height="14" viewBox="0 0 8 14" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M5.06067 7.00001L0.110671 2.05001L1.52467 0.636014L7.88867 7.00001L1.52467 13.364L0.110672 11.95L5.06067 7.00001Z"
-                                        fill="#fefdfo" />
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            {{-- PAGINATION --}}
+            <div class="mt-8">
+    {{ $artikel->links() }}
+</div>
         </div>
-    </section>
-@endsection
+    </div>
+</x-app-layout>

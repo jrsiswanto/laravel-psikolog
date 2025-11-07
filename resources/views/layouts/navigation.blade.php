@@ -29,7 +29,7 @@
 
                 @auth
                     <!-- USER DROPDOWN -->
-                    <div class="sm:block relative" @click.away="profileOpen = false">
+                    <div class="relative sm:flex hidden sm:relative" @click.away="profileOpen = false">
                         <button @click="profileOpen = !profileOpen"
                             class="flex items-center focus:outline-none rounded-full ring-2 ring-transparent hover:ring-gray-300 dark:hover:ring-gray-600">
                             <img class="h-9 w-9 rounded-full object-cover" src="{{ asset('images/team-01.png') }}"

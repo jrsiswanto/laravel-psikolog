@@ -29,7 +29,7 @@
                         <input type="text"
                                id="slug"
                                name="slug"
-                               class="flex-1 text-sm text-black text-black border-b border-gray-300 dark:border-gray-600 focus:ring-0 focus:border-blue-500 bg-transparent"
+                               class="flex-1 text-sm text-black border-b border-gray-300 dark:border-gray-600 focus:ring-0 focus:border-blue-500 bg-transparent"
                                placeholder="slug-akan-muncul-disini">
                     </div>
 

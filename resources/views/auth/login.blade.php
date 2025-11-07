@@ -1,105 +1,84 @@
-{{-- resources/views/auth/login.blade.php --}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Psikolog - RSUD Jombang • Masuk</title>
+<x-app-layout>
+    <x-slot name="title">Masuk • Psikolog RSUD Jombang</x-slot>
 
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
-    <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="{{ asset('assets/styles/style.css') }}" />
-    <link href="{{ asset('fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    @vite(['resources/css/app.css','resources/js/app.js'])
-</head>
+    <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+            <div class="text-center">
+                <img src="{{ asset('favicon.ico') }}" alt="Logo" class="mx-auto h-12 w-12 rounded-full shadow">
+                <h2 class="mt-6 text-3xl font-bold text-gray-900 dark:text-gray-100">Masuk ke Akun Anda</h2>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    Psikolog RSUD Jombang
+                </p>
+            </div>
 
-<body
-    x-data="{ darkMode: true, scrollTop: false }"
-    x-init="
-        darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
-        $watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))
-    "
-    x-on:scroll.window="scrollTop = (window.pageYOffset > 300)"
-    :class="{ 'b eh': darkMode }"
->
+            <form class="mt-8 space-y-6" method="POST" action="{{ route('login') }}">
+                @csrf
 
-    <x-layout.navbar />
+                @if (session('status'))
+                    <div class="text-green-600 text-sm text-center">{{ session('status') }}</div>
+                @endif
 
-    <main>
-        <section class="i pg fh rm ki xn vq gj qp gr hj rp hr">
-            <div class="animate_top bb af i va sg hh sm vk xm yi _n jp hi ao kp">
-                <div class="rj">
-                    <h2 class="ek ck kk wm xb">Masuk</h2>
+                {{-- Email --}}
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                        placeholder="example@gmail.com"
+                        class="appearance-none block w-full px-3 py-2 mt-1 border border-gray-300 dark:border-gray-600 
+                        rounded-lg shadow-sm placeholder-gray-400 focus:outline-none 
+                        focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-100">
+                    @error('email')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <form class="sb" method="POST" action="{{ route('login') }}">
-                    @csrf
+                {{-- Password --}}
+                <div>
+                    <label for="password"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                    <input id="password" type="password" name="password" required
+                        placeholder="**************"
+                        class="appearance-none block w-full px-3 py-2 mt-1 border border-gray-300 dark:border-gray-600 
+                        rounded-lg shadow-sm placeholder-gray-400 focus:outline-none 
+                        focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-100">
+                    @error('password')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    @if (session('status'))
-                        <div class="mb-4 text-sm text-green-600">{{ session('status') }}</div>
+                {{-- Remember Me --}}
+                <div class="flex items-center justify-between">
+                    <label for="remember_me" class="flex items-center">
+                        <input id="remember_me" name="remember" type="checkbox"
+                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Ingat saya</span>
+                    </label>
+                </div>
+
+                {{-- Tombol Masuk --}}
+                <div>
+                    <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg 
+                        shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
+                        transition duration-150 ease-in-out">
+                        Masuk
+                    </button>
+                </div>
+
+                {{-- Link ke Daftar --}}
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                    Belum punya akun?
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold">
+                            Daftar
+                        </a>
+                    @else
+                        <a href="{{ url('/') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold">
+                            Kembali
+                        </a>
                     @endif
-
-                    <div class="wb">
-                        <label for="email" class="rc kk wm vb">Email</label>
-                        <input
-                            id="email"
-                            type="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            required
-                            autofocus
-                            autocomplete="username"
-                            placeholder="example@gmail.com"
-                            class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40" />
-                        @error('email')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="wb mt-4">
-                        <label for="password" class="rc kk wm vb">Password</label>
-                        <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            required
-                            autocomplete="current-password"
-                            placeholder="**************"
-                            class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40" />
-                        @error('password')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="block mt-4">
-                        <label for="remember_me" class="inline-flex items-center">
-                            <input id="remember_me" type="checkbox" name="remember"
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                            <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Ingat saya</span>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-6">
-                        <button type="submit" class="vd rj ek rc rg gh lk ml il _l gi hi">
-                            Masuk
-                        </button>
-                    </div>
-
-                    <p class="sj hk xj rj ob mt-6">
-                        Belum punya akun?
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="mk">Daftar</a>
-                        @else
-                            <a href="{{ url('/') }}" class="mk">Kembali</a>
-                        @endif
-                    </p>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <x-layout.footer />
-
-    <script defer src="{{ asset('bundle.js') }}"></script>
-</body>
-</html>
+                </p>
+            </form>
+        </div>
+    </div>
+</x-app-layout>
