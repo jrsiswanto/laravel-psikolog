@@ -12,6 +12,8 @@ Route::get('/', function () {return view('index');})->name('home');
 //view konsultasi
 Route::view('/konsultasi', 'fitur.konsultasi');
 
+Route::view('/dashboard', 'dashboard');
+
 //masih jadi satu
 //view artikel
 Route::resource('artikel',ArtikelController::class);
