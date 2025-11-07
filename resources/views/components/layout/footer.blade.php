@@ -4,14 +4,15 @@
     :class="darkMode ? 'bg-gray-900 text-gray-400' : 'bg-white text-slate-900'"
 >
     <div class="bb ze ki xn 2xl:ud-px-0">
-        <div class="bh ch pm tc uf sf yo wf xf ap cg fp bj flex justify-center py-8">
-            <div class="animate_top text-center">
-                <p class="xl">
-                    &copy; {{ now()->year }} Psikologi RSUD Jombang. All Rights Reserved.
-                </p>
-            </div>
+    <div class="bh ch pm tc uf sf yo wf xf ap cg fp bj flex justify-center py-8">
+        {{-- Tambahkan 'w-full' di sini --}}
+        <div class="animate_top text-center w-full"> 
+            <p class="xl">
+                &copy; {{ now()->year }} Psikologi RSUD Jombang. All Rights Reserved.
+            </p>
         </div>
     </div>
+</div>
 
     <!-- ====== Back To Top Start ===== -->
     <button class="xc wf xf ie ld vg sr gh tr g sa ta _a"

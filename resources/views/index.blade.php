@@ -64,7 +64,7 @@
                 <div class="wc qf pn xo ng">
                     <!-- Service Item -->
                     <div class="animate_top sg oi pi zq ml il am cn _m">
-                        <a href="">
+                        <a href="/konsultasi">
                             <img class="ce ed" src="{{ asset('images/comment.svg') }}" alt="Konsultasi" />
                             <h4 class="ek zj kk wm nb _b">Konsultasi Psikolog</h4>
                             <p>Bimbingan profesional untuk kesehatan mental Anda.</p>
@@ -74,6 +74,7 @@
                     <!-- Service Item -->
                     <div class="animate_top sg oi pi zq ml il am cn _m">
                         <a href="">
+                            <a href="{{ route('artikel.index') }}">
                             <img class="ce ed" src="{{ asset('images/newspaper-svgrepo-com.svg') }}" alt="Artikel" />
                             <h4 class="ek zj kk wm nb _b">Artikel</h4>
                             <p>Informasi dan tips seputar psikologi dan kesejahteraan.</p>
