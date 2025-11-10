@@ -5,14 +5,14 @@ use App\Http\Controllers\ArtikelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\InfografisController;
+use App\Http\Controllers\TanyaJawabController;
+
 
 // route public
 
 Route::get('/', function () {return view('index');})->name('home');
 //view konsultasi
-Route::view('/konsultasi', 'fitur.konsultasi');
-
-Route::view('/dashboard', 'dashboard');
+Route::view('/konsultasi', 'fitur.konsultasi');    
 
 //masih jadi satu
 //view artikel
@@ -22,7 +22,7 @@ Route::resource('video', VideoController::class);
 //route infografis
 Route::resource('infografis',InfografisController::class);   
 //route tanya jawab
-Route::resource('tanya-jawab', \App\Http\Controllers\TanyaJawabController::class);
+Route::resource('tanya-jawab',TanyaJawabController::class);
 
 // route breeze
 Route::middleware('auth')->group(function () {
@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::view('/dashboard', 'dashboard');
 });
 
 require __DIR__.'/auth.php';

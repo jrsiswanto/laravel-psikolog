@@ -14,6 +14,13 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'rsud-blue': '#044f86',
+                'rsud-blue-light': '#346b9b',
+                // 'sidebar-dark' Anda adalah putih, jadi mungkin tidak perlu,
+                // tapi jika ingin, bisa ditambahkan:
+                'sidebar-bg': '#ffffff', 
+            }
         },
     },
 

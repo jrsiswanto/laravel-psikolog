@@ -1,3 +1,56 @@
+/* resources/css/app.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Definisikan kelas kustom Anda di sini 
+  menggunakan @layer components
+*/
+@layer components {
+  .admin-card {
+    @apply bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100;
+  }
+  .admin-input {
+    @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rsud-blue focus:border-rsud-blue transition duration-150;
+  }
+
+  /* Styling untuk sidebar menu */
+  .sidebar-menu a.active { 
+    @apply bg-rsud-blue-light text-white;
+  }
+  .sidebar-menu a:not(.active) { 
+    @apply text-rsud-blue;
+  }
+  .sidebar-menu a:not(.active):hover {
+    @apply bg-gray-100 text-rsud-blue; /* bg-gray-100 adalah #f3f4f6 */
+  }
+}
+
+/* Styling kustom non-Tailwind
+  (Seperti transisi dan state khusus)
+*/
+.sidebar { 
+  transition: width 0.3s ease; 
+}
+.sidebar-closed { 
+  width: 80px !important; 
+}
+
+/* Aturan untuk menyembunyikan teks saat sidebar ditutup */
+.sidebar-closed .sidebar-menu a span, 
+.sidebar-closed .sidebar-menu h3, 
+.sidebar-closed h3 { 
+    opacity: 0; 
+    visibility: hidden; 
+    width: 0; 
+    white-space: nowrap; 
+    transition: opacity 0.1s, visibility 0.1s, width 0.1s;
+}
+
+/* Aturan untuk memusatkan ikon saat sidebar ditutup */
+.sidebar-closed .sidebar-menu a { 
+  @apply justify-center; 
+}
+.sidebar-closed .sidebar-menu a svg { 
+  margin-right: 0 !important; 
+}
